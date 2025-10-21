@@ -94,7 +94,7 @@ image:
   pullSecrets: []
   ## Set to true if you would like to see extra information on logs
   ##
-  debug: false
+  debug: true
 ## Bitnami MinIO&reg; Client image version
 ## ref: https://hub.docker.com/r/bitnami/minio-client/tags/
 ## @param clientImage.registry [default: REGISTRY_NAME] MinIO&reg; Client image registry
