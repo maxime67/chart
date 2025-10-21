@@ -92,7 +92,7 @@ usePasswordFiles: true
 ##
 image:
   registry: docker.io
-  repository: maxxa/keycloak
+  repository: maxxa/bitnami-keycloak
   tag: 26
   digest: ""
   ## Specify a imagePullPolicy
