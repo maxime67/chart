@@ -106,7 +106,7 @@ image:
   ##   - myRegistryKeySecretName
   ##
   pullSecrets: []
-  debug: false
+  debug: true
 ## Keycloak authentication parameters
 ## ref: https://github.com/bitnami/containers/tree/main/bitnami/keycloak#admin-credentials
 ##
