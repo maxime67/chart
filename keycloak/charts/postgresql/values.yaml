@@ -7,7 +7,7 @@
 global:
   ## @param global.imageRegistry Global Docker image registry
   ##
-  imageRegistry: "docker.io"
+  imageRegistry: ""
   ## @param global.imagePullSecrets Global Docker registry secret names as an array
   ## e.g.
   ## imagePullSecrets:
@@ -38,10 +38,10 @@ global:
     fullnameOverride: ""
     
     auth:
-      postgresPassword: ""
-      username: ""
-      password: ""
-      database: ""
+      postgresPassword: "password"
+      username: "user"
+      password: "password"
+      database: "database"
       existingSecret: ""
       secretKeys:
         adminPasswordKey: ""
