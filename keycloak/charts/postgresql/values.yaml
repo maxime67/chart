@@ -120,7 +120,7 @@ diagnosticMode:
 ##
 image:
   registry: docker.io
-  repository: postgres/postgres
+  repository: postgres
   tag: 17.6
   digest: "sha256:603395c235c99984271a59a6476eed9db4f584e85ba64f9f49a65ba835882f33"
   ## Specify a imagePullPolicy
