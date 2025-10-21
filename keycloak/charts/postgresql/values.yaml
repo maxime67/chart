@@ -122,7 +122,7 @@ image:
   registry: registry-1.docker.io
   repository: bitnami/postgresql
   tag: latest
-  digest: "sha256:603395c235c99984271a59a6476eed9db4f584e85ba64f9f49a65ba835882f33"
+  digest: ""
   ## Specify a imagePullPolicy
   ## ref: https://kubernetes.io/docs/concepts/containers/images/#pre-pulled-images
   ##
