@@ -7,7 +7,7 @@
 global:
   ## @param global.imageRegistry Global Docker image registry
   ##
-  imageRegistry: ""
+  imageRegistry: "docker.io"
   ## @param global.imagePullSecrets Global Docker registry secret names as an array
   ## e.g.
   ## imagePullSecrets:
@@ -120,9 +120,9 @@ diagnosticMode:
 ##
 image:
   registry: docker.io
-  repository: bitnami/postgresql
-  tag: 17.6.0-debian-12-r0
-  digest: ""
+  repository: postgres/postgres
+  tag: 17.6
+  digest: "sha256:603395c235c99984271a59a6476eed9db4f584e85ba64f9f49a65ba835882f33"
   ## Specify a imagePullPolicy
   ## ref: https://kubernetes.io/docs/concepts/containers/images/#pre-pulled-images
   ##

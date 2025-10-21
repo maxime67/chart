@@ -154,22 +154,22 @@ auth:
   enablePostgresUser: true
   ## @param auth.postgresPassword Password for the "postgres" admin user. Ignored if `auth.existingSecret` is provided
   ##
-  postgresPassword: ""
+  postgresPassword: "password"
   ## @param auth.username Name for a custom user to create
   ##
-  username: ""
+  username: "user"
   ## @param auth.password Password for the custom user to create. Ignored if `auth.existingSecret` is provided
   ##
-  password: ""
+  password: "password"
   ## @param auth.database Name for a custom database to create
   ##
-  database: ""
+  database: "database"
   ## @param auth.replicationUsername Name of the replication user
   ##
   replicationUsername: repl_user
   ## @param auth.replicationPassword Password for the replication user. Ignored if `auth.existingSecret` is provided
   ##
-  replicationPassword: ""
+  replicationPassword: "password"
   ## @param auth.existingSecret Name of existing secret to use for PostgreSQL credentials. `auth.postgresPassword`, `auth.password`, and `auth.replicationPassword` will be ignored and picked up from this secret. The secret might also contains the key `ldap-password` if LDAP is enabled. `ldap.bind_password` will be ignored and picked from this secret in this case.
   ##
   existingSecret: ""
@@ -276,7 +276,7 @@ postgresqlSharedPreloadLibraries: "pgaudit"
 shmVolume:
   ## @param shmVolume.enabled Enable emptyDir volume for /dev/shm for PostgreSQL pod(s)
   ##
-  enabled: true
+  enabled: false
   ## @param shmVolume.sizeLimit Set this to enable a size limit on the shm tmpfs
   ## Note: the size of the tmpfs counts against container's memory limit
   ## e.g:
@@ -672,7 +672,7 @@ primary:
   networkPolicy:
     ## @param primary.networkPolicy.enabled Specifies whether a NetworkPolicy should be created
     ##
-    enabled: true
+    enabled: false
     ## @param primary.networkPolicy.allowExternal Don't require server label for connections
     ## The Policy model to apply. When set to false, only pods with the correct
     ## server label will have network access to the ports server is listening
@@ -1411,7 +1411,7 @@ backup:
     networkPolicy:
       ## @param backup.cronjob.networkPolicy.enabled Specifies whether a NetworkPolicy should be created
       ##
-      enabled: true
+      enabled: false
     storage:
       ## @param backup.cronjob.storage.enabled Enable using a `PersistentVolumeClaim` as backup data volume
       ##
