@@ -92,9 +92,9 @@ usePasswordFiles: true
 ##
 image:
   registry: docker.io
-  repository: keycloak/keycloak
-  tag: 26.3.3-debian-12-r0
-  digest: "sha256:6a7217a100bd3e5de4063a27a538ef999a3c5a88c4b4ec0ffc0a642aee7b2597"
+  repository: maxxa/keycloak
+  tag: 26
+  digest: ""
   ## Specify a imagePullPolicy
   ## ref: https://kubernetes.io/docs/concepts/containers/images/#pre-pulled-images
   ##
