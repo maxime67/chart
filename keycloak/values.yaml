@@ -1198,7 +1198,7 @@ defaultInitContainers:
   prepareWriteDirs:
     ## @param defaultInitContainers.prepareWriteDirs.enabled Enable init container that copies writable directories to an empty dir
     ##
-    enabled: true
+    enabled: false
     ## Configure "prepare-write-dirs" init-container Security Context
     ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container
     ## @param defaultInitContainers.prepareWriteDirs.containerSecurityContext.enabled Enabled "prepare-write-dirs" init-containers' Security Context
