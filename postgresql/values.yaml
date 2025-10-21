@@ -38,10 +38,10 @@ global:
     fullnameOverride: ""
     
     auth:
-      postgresPassword: ""
-      username: ""
-      password: ""
-      database: ""
+      postgresPassword: "password"
+      username: "user"
+      password: "password"
+      database: "database"
       existingSecret: ""
       secretKeys:
         adminPasswordKey: ""
@@ -51,7 +51,7 @@ global:
     ##
     service:
       ports:
-        postgresql: ""
+        postgresql: "5432"
   ## Compatibility adaptations for Kubernetes platforms
   ##
   compatibility:
