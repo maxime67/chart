@@ -105,7 +105,7 @@ image:
 clientImage:
   registry: docker.io
   repository: maxxa/bitnami-minio-client
-  tag: 2025
+  tag: 2
   digest: ""
 ## MinIO&reg; authentication parameters
 ##
