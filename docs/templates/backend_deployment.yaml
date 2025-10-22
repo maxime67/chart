@@ -30,20 +30,7 @@ spec:
       imagePullSecrets:
         - name: {{ include "impress.secret.dockerconfigjson.name" (dict "fullname" (include "impress.fullname" .) "imageCredentials" $.Values.image.credentials) }}
       {{- end}}
-      {{- if .Values.backend.serviceAccountName }}
-      serviceAccountName: {{ .Values.backend.serviceAccountName }}
-      {{- end }}
       shareProcessNamespace: {{ .Values.backend.shareProcessNamespace }}
-      initContainers:
-        - name: install-dependencies
-          image: "{{ (.Values.backend.image | default dict).repository | default .Values.image.repository }}:{{ (.Values.backend.image | default dict).tag | default .Values.image.tag }}"
-          command:
-            - pip
-            - install
-            - django-extensions
-          volumeMounts:
-            - name: python-packages
-              mountPath: /usr/local/lib/python3.13/site-packages
       containers:
         {{- with .Values.backend.sidecars }}
           {{- toYaml . | nindent 8 }}
@@ -121,8 +108,6 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       volumes:
-        - name: "python-packages"
-          emptyDir: {}
         {{- range $index, $value := .Values.mountFiles }}
         - name: "files-{{ $index }}"
           configMap:
