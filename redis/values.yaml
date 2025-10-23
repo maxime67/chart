@@ -1650,7 +1650,7 @@ serviceBindings:
 networkPolicy:
   ## @param networkPolicy.enabled Enable creation of NetworkPolicy resources
   ##
-  enabled: true
+  enabled: false
   ## @param networkPolicy.allowExternal Don't require client label for connections
   ## When set to false, only pods with the correct client label will have network access to the ports
   ## Redis(R) is listening on. When true, Redis(R) will accept connections from any source
