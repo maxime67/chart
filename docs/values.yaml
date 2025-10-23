@@ -617,30 +617,26 @@ yProvider:
             path: cacert.pem
 
   ## @param yProvider.command Override the yProvider container command
-  command: [ ]
+  command: []
 
   ## @param yProvider.args Override the yProvider container args
-  args: [ ]
+  args: []
 
   ## @param yProvider.shareProcessNamespace Enable share process nameyProvider between containers
   shareProcessNamespace: false
 
   ## @param yProvider.sidecars Add sidecars containers to yProvider deployment
-  sidecars: [ ]
+  sidecars: []
 
   ## @param yProvider.securityContext Configure yProvider Pod security context
   securityContext: null
 
   ## @param yProvider.podAnnotations Annotations to add to the yProvider Pod
-  podAnnotations: { }
+  podAnnotations: {}
 
   ## @param yProvider.dpAnnotations Annotations to add to the yProvider Deployment
-  dpAnnotations: { }
+  dpAnnotations: {}
 
-  ## @param yProvider.service.type yProvider Service type
-  ## @param yProvider.service.port yProvider Service listening port
-  ## @param yProvider.service.targetPort yProvider container listening port
-  ## @param yProvider.service.annotations Annotations to add to the yProvider Service
   service:
     type: ClusterIP
     port: 443
