@@ -65,7 +65,7 @@ ingress:
 ## @param ingressCollaborationWS.host Host for the Ingress
 ## @param ingressCollaborationWS.path Path to use for the Ingress
 ingressCollaborationWS:
-  enabled: true
+  enabled: false
   className: null
   host: impress.127.0.0.1.nip.io
   path: /collaboration/ws/
@@ -100,7 +100,7 @@ ingressCollaborationWS:
 ## @param ingressCollaborationApi.host Host for the Ingress
 ## @param ingressCollaborationApi.path Path to use for the Ingress
 ingressCollaborationApi:
-  enabled: true
+  enabled: false
   className: null
   host: impress.127.0.0.1.nip.io
   path: /collaboration/api/
@@ -152,7 +152,7 @@ ingressAdmin:
 ## @param ingressMedia.host Host for the Ingress
 ## @param ingressMedia.path Path to use for the Ingress
 ingressMedia:
-  enabled: true
+  enabled: false
   className: null
   host: impress.127.0.0.1.nip.io
   path: /media/(.*)
@@ -313,7 +313,7 @@ backend:
   ## @param backend.service.targetPort backend container listening port
   ## @param backend.service.annotations Annotations to add to the backend Service
   service:
-    type: ClusterIP
+    type: NodePort
     port: 80
     targetPort: 8000
     annotations: { }
@@ -462,7 +462,7 @@ frontend:
   ## @param frontend.service.targetPort frontend container listening port
   ## @param frontend.service.annotations Annotations to add to the frontend Service
   service:
-    type: ClusterIP
+    type: NodePort
     port: 80
     targetPort: 8080
     annotations: { }
@@ -523,7 +523,7 @@ posthog:
   ## @param posthog.ingress.customBackends Custom backend service configurations for the ingress
   ## @param posthog.ingress.annotations Additional Kubernetes annotations to apply to the ingress
   ingress:
-    enabled: true
+    enabled: false
     className: traefik
     host: impress.k0li.fr
     path: /
@@ -636,7 +636,7 @@ yProvider:
   dpAnnotations: { }
 
   service:
-    type: ClusterIP
+    type: NodePort
     port: 443
     targetPort: 4444
     annotations: { }
