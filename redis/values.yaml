@@ -14,6 +14,7 @@
 ## @param global.redis.password Global Redis(R) password (overrides `auth.password`)
 ## @param global.defaultFips Default value for the FIPS configuration (allowed values: '', restricted, relaxed, off). Can be overriden by the 'fips' object
 ##
+
 global:
   imageRegistry: ""
   ## E.g.
@@ -29,7 +30,7 @@ global:
     ## @param global.security.allowInsecureImages Allows skipping image verification
     allowInsecureImages: false
   redis:
-    password: ""
+    password: "pass"
   ## Compatibility adaptations for Kubernetes platforms
   ##
   compatibility:
@@ -156,7 +157,7 @@ auth:
   ## @param auth.password Redis(R) password
   ## Defaults to a random 10-character alphanumeric string if not set
   ##
-  password: ""
+  password: "pass"
   ## @param auth.existingSecret The name of an existing secret with Redis(R) credentials
   ## NOTE: When it's set, the previous `auth.password` parameter is ignored
   ##
