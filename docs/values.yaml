@@ -43,7 +43,7 @@ ingress:
   ## @extra ingress.tls.additional[].secretName Secret name for additional TLS config
   ## @extra ingress.tls.additional[].hosts[] Hosts for additional TLS config
   tls:
-    enabled: true
+    enabled: false
     secretName: null
     additional: []
 
