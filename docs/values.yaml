@@ -228,14 +228,14 @@ backend:
     Y_PROVIDER_API_BASE_URL: http://impress-y-provider:443/api/
     Y_PROVIDER_API_KEY: my-secret
 
-#  migrate:
-#    command:
-#      - "/bin/sh"
-#      - "-c"
-#      - |
-#        python manage.py migrate --no-input &&
-#        python manage.py create_demo --force
-#    restartPolicy: Never
+  migrate:
+    command:
+      - "/bin/sh"
+      - "-c"
+      - |
+        python manage.py migrate --no-input &&
+        python manage.py create_demo --force
+    restartPolicy: Never
 
   command:
     - "gunicorn"
@@ -244,13 +244,13 @@ backend:
     - "impress.wsgi:application"
     - "--reload"
 
-#  createsuperuser:
-#    command:
-#      - "/bin/sh"
-#      - "-c"
-#      - |
-#        python manage.py createsuperuser --email admin@example.com --password admin
-#    restartPolicy: Never
+  createsuperuser:
+    command:
+      - "/bin/sh"
+      - "-c"
+      - |
+        python manage.py createsuperuser --email admin@example.com --password admin
+    restartPolicy: Never
 
   # Extra volume to manage our local custom CA and avoid to set ssl_verify: false
 #  extraVolumeMounts:
@@ -306,39 +306,39 @@ backend:
 
   ## @param backend.migrate.command backend migrate command
   ## @param backend.migrate.restartPolicy backend migrate job restart policy
-  migrate:
-    command:
-      - /bin/sh
-      - "-c"
-      - |
-        while ! python manage.py check --database default > /dev/null 2>&1
-        do
-          echo "Database not ready"
-          sleep 2
-        done
-
-        echo "Database is ready"
-
-        python manage.py migrate --no-input
-    restartPolicy: Never
-
-  ## @param backend.createsuperuser.command backend migrate command
-  ## @param backend.createsuperuser.restartPolicy backend migrate job restart policy
-  createsuperuser:
-    command:
-      - "/bin/sh"
-      - "-c"
-      - |
-        while ! python manage.py check --database default > /dev/null 2>&1
-        do
-          echo "Database not ready"
-          sleep 2
-        done
-
-        echo "Database is ready"
-
-        python manage.py createsuperuser --email $DJANGO_SUPERUSER_EMAIL --password $DJANGO_SUPERUSER_PASSWORD
-    restartPolicy: Never
+#  migrate:
+#    command:
+#      - /bin/sh
+#      - "-c"
+#      - |
+#        while ! python manage.py check --database default > /dev/null 2>&1
+#        do
+#          echo "Database not ready"
+#          sleep 2
+#        done
+#
+#        echo "Database is ready"
+#
+#        python manage.py migrate --no-input
+#    restartPolicy: Never
+#
+#  ## @param backend.createsuperuser.command backend migrate command
+#  ## @param backend.createsuperuser.restartPolicy backend migrate job restart policy
+#  createsuperuser:
+#    command:
+#      - "/bin/sh"
+#      - "-c"
+#      - |
+#        while ! python manage.py check --database default > /dev/null 2>&1
+#        do
+#          echo "Database not ready"
+#          sleep 2
+#        done
+#
+#        echo "Database is ready"
+#
+#        python manage.py createsuperuser --email $DJANGO_SUPERUSER_EMAIL --password $DJANGO_SUPERUSER_PASSWORD
+#    restartPolicy: Never
 
   ## @extra backend.job job dedicated to run a random management command, for example after a deployment
   ## @param backend.job.name The name to use to describe this job
