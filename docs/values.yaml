@@ -40,7 +40,7 @@ commonEnvVars: &commonEnvVars
 ingress:
   enabled: true
   className: null
-  host: impress.127.0.0.1.nip.io
+  host: impress.k0li.fr
   path: /
   ## @param ingress.hosts Additional host to configure for the Ingress
   hosts: [ ]
@@ -51,12 +51,14 @@ ingress:
   ## @extra ingress.tls.additional[].secretName Secret name for additional TLS config
   ## @extra ingress.tls.additional[].hosts[] Hosts for additional TLS config
   tls:
-    enabled: true
+    enabled: false
     secretName: null
     additional: [ ]
 
   ## @param ingress.customBackends Add custom backends to ingress
   customBackends: [ ]
+  annotations:
+    - traefik.ingress.kubernetes.io/router.tls.certresolver: letsencrypt
 
 ## @param ingressCollaborationWS.enabled whether to enable the Ingress or not
 ## @param ingressCollaborationWS.className IngressClass to use for the Ingress
