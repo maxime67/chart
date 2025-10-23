@@ -1,14 +1,8 @@
-
-
-
-
-
-
-  annotations:
-    nginx.ingress.kubernetes.io/auth-url: https://impress.127.0.0.1.nip.io/api/v1.0/documents/media-auth/
-    nginx.ingress.kubernetes.io/auth-response-headers: "Authorization, X-Amz-Date, X-Amz-Content-SHA256"
-    nginx.ingress.kubernetes.io/upstream-vhost: minio.impress.svc.cluster.local:9000
-    nginx.ingress.kubernetes.io/rewrite-target: /impress-media-storage/$1
+annotations:
+  nginx.ingress.kubernetes.io/auth-url: https://impress.127.0.0.1.nip.io/api/v1.0/documents/media-auth/
+  nginx.ingress.kubernetes.io/auth-response-headers: "Authorization, X-Amz-Date, X-Amz-Content-SHA256"
+  nginx.ingress.kubernetes.io/upstream-vhost: minio.impress.svc.cluster.local:9000
+  nginx.ingress.kubernetes.io/rewrite-target: /impress-media-storage/$1
 
 
 
@@ -617,31 +611,31 @@ yProvider:
             path: cacert.pem
 
   ## @param yProvider.command Override the yProvider container command
-  command: []
+  command: [ ]
 
   ## @param yProvider.args Override the yProvider container args
-  args: []
+  args: [ ]
 
   ## @param yProvider.shareProcessNamespace Enable share process nameyProvider between containers
   shareProcessNamespace: false
 
   ## @param yProvider.sidecars Add sidecars containers to yProvider deployment
-  sidecars: []
+  sidecars: [ ]
 
   ## @param yProvider.securityContext Configure yProvider Pod security context
   securityContext: null
 
   ## @param yProvider.podAnnotations Annotations to add to the yProvider Pod
-  podAnnotations: {}
+  podAnnotations: { }
 
   ## @param yProvider.dpAnnotations Annotations to add to the yProvider Deployment
-  dpAnnotations: {}
+  dpAnnotations: { }
 
   service:
     type: ClusterIP
     port: 443
     targetPort: 4444
-    annotations: {}
+    annotations: { }
 
   ## @extra yProvider.probes.liveness.path Configure path for yProvider HTTP liveness probe
   ## @extra yProvider.probes.liveness.targetPort Configure port for yProvider HTTP liveness probe
