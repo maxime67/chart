@@ -106,6 +106,7 @@ frontend:
     tag: "latest"
 
 yProvider:
+  annotations: { }
   replicas: 1
 
   image:
