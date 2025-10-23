@@ -91,7 +91,7 @@ ingressCollaborationWS:
 ## @param ingressCollaborationApi.path Path to use for the Ingress
 ingressCollaborationApi:
   enabled: true
-  host: impress.127.0.0.1.nip.io
+  host: impress.k0li.fr
   className: null
   path: /collaboration/api/
   ## @param ingressCollaborationApi.hosts Additional host to configure for the Ingress
@@ -121,7 +121,7 @@ ingressCollaborationApi:
 ## @param ingressAdmin.path Path to use for the Ingress
 ingressAdmin:
   enabled: true
-  host: impress.127.0.0.1.nip.io
+  host: impress.k0li.fr
   className: null
   path: /admin
   ## @param ingressAdmin.hosts Additional host to configure for the Ingress
@@ -143,10 +143,10 @@ ingressAdmin:
 ## @param ingressMedia.path Path to use for the Ingress
 ingressMedia:
   enabled: true
-  host: impress.127.0.0.1.nip.io
+  host: impress.k0li.fr
 
   annotations:
-    nginx.ingress.kubernetes.io/auth-url: https://impress.127.0.0.1.nip.io/api/v1.0/documents/media-auth/
+    nginx.ingress.kubernetes.io/auth-url: https://impress.k0li.fr/api/v1.0/documents/media-auth/
     nginx.ingress.kubernetes.io/auth-response-headers: "Authorization, X-Amz-Date, X-Amz-Content-SHA256"
     nginx.ingress.kubernetes.io/upstream-vhost: minio.impress.svc.cluster.local:9000
     nginx.ingress.kubernetes.io/rewrite-target: /impress-media-storage/$1
@@ -179,18 +179,18 @@ serviceMedia:
 backend:
   replicas: 1
   envVars:
-    COLLABORATION_API_URL: https://impress.127.0.0.1.nip.io/collaboration/api/
+    COLLABORATION_API_URL: https://impress.k0li.fr/collaboration/api/
     COLLABORATION_SERVER_SECRET: my-secret
-    DJANGO_CSRF_TRUSTED_ORIGINS: https://impress.127.0.0.1.nip.io
+    DJANGO_CSRF_TRUSTED_ORIGINS: https://impress.k0li.fr
     DJANGO_CONFIGURATION: Feature
-    DJANGO_ALLOWED_HOSTS: impress.127.0.0.1.nip.io
+    DJANGO_ALLOWED_HOSTS: impress.k0li.fr
     DJANGO_SERVER_TO_SERVER_API_TOKENS: secret-api-key
     DJANGO_SECRET_KEY: AgoodOrAbadKey
     DJANGO_SETTINGS_MODULE: impress.settings
     DJANGO_SUPERUSER_PASSWORD: admin
     DJANGO_EMAIL_BRAND_NAME: "La Suite Numérique"
     DJANGO_EMAIL_HOST: "mailcatcher"
-    DJANGO_EMAIL_LOGO_IMG: https://impress.127.0.0.1.nip.io/assets/logo-suite-numerique.png
+    DJANGO_EMAIL_LOGO_IMG: https://impress.k0li.fr/assets/logo-suite-numerique.png
     DJANGO_EMAIL_PORT: 1025
     DJANGO_EMAIL_USE_SSL: False
     LOGGING_LEVEL_HANDLERS_CONSOLE: ERROR
@@ -208,12 +208,12 @@ backend:
     OIDC_VERIFY_SSL: False
     OIDC_USERINFO_SHORTNAME_FIELD: "given_name"
     OIDC_USERINFO_FULLNAME_FIELDS: "given_name,usual_name"
-    OIDC_REDIRECT_ALLOWED_HOSTS: https://impress.127.0.0.1.nip.io
+    OIDC_REDIRECT_ALLOWED_HOSTS: https://impress.k0li.fr
     OIDC_AUTH_REQUEST_EXTRA_PARAMS: "{'acr_values': 'eidas1'}"
-    LOGIN_REDIRECT_URL: https://impress.127.0.0.1.nip.io
-    LOGIN_REDIRECT_URL_FAILURE: https://impress.127.0.0.1.nip.io
-    LOGOUT_REDIRECT_URL: https://impress.127.0.0.1.nip.io
-    POSTHOG_KEY: "{'id': 'posthog_key', 'host': 'https://product.impress.127.0.0.1.nip.io'}"
+    LOGIN_REDIRECT_URL: https://impress.k0li.fr
+    LOGIN_REDIRECT_URL_FAILURE: https://impress.k0li.fr
+    LOGOUT_REDIRECT_URL: https://impress.k0li.fr
+    POSTHOG_KEY: "{'id': 'posthog_key', 'host': 'https://product.impress.k0li.fr'}"
     DB_HOST: postgresql.postgresql.svc.cluster.local
     DB_NAME: impress
     DB_USER: dinum
@@ -458,7 +458,7 @@ backend:
 frontend:
   envVars:
     PORT: 8080
-    NEXT_PUBLIC_API_ORIGIN: https://impress.127.0.0.1.nip.io
+    NEXT_PUBLIC_API_ORIGIN: https://impress.k0li.fr
 
   replicas: 1
 
@@ -626,10 +626,10 @@ yProvider:
 
   envVars:
     COLLABORATION_LOGGING: true
-    COLLABORATION_SERVER_ORIGIN: https://impress.127.0.0.1.nip.io
+    COLLABORATION_SERVER_ORIGIN: https://impress.k0li.fr
     COLLABORATION_SERVER_SECRET: my-secret
     Y_PROVIDER_API_KEY: my-secret
-    COLLABORATION_BACKEND_BASE_URL: https://impress.127.0.0.1.nip.io
+    COLLABORATION_BACKEND_BASE_URL: https://impress.k0li.fr
     NODE_EXTRA_CA_CERTS: /usr/local/share/ca-certificates/cacert.pem
 
   # Mount the certificate so yProvider can establish tls with the backend
