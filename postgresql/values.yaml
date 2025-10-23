@@ -161,7 +161,7 @@ auth:
   username: "dinum"
   ## @param auth.password Password for the custom user to create. Ignored if `auth.existingSecret` is provided
   ##
-  password: "password"
+  password: "pass"
   ## @param auth.database Name for a custom database to create
   ##
   database: "impress"
