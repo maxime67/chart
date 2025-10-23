@@ -106,7 +106,6 @@ frontend:
     tag: "latest"
 
 yProvider:
-  annotations: { }
   replicas: 1
 
   image:
@@ -135,6 +134,8 @@ yProvider:
         items:
           - key: cacert.pem
             path: cacert.pem
+  service:
+    annotations: { }
 
 posthog:
   ingress:
