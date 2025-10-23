@@ -193,11 +193,11 @@ serviceMedia:
 backend:
   replicas: 1
   envVars:
-    COLLABORATION_API_URL: https://impress.127.0.0.1.nip.io/collaboration/api/
+    COLLABORATION_API_URL: https://http://51.77.150.97:31954/collaboration/api/
     COLLABORATION_SERVER_SECRET: my-secret
-    DJANGO_CSRF_TRUSTED_ORIGINS: https://impress.127.0.0.1.nip.io
+    DJANGO_CSRF_TRUSTED_ORIGINS: *
     DJANGO_CONFIGURATION: Feature
-    DJANGO_ALLOWED_HOSTS: impress.127.0.0.1.nip.io
+    DJANGO_ALLOWED_HOSTS: *
     DJANGO_SERVER_TO_SERVER_API_TOKENS: secret-api-key
     DJANGO_SECRET_KEY: AgoodOrAbadKey
     DJANGO_SETTINGS_MODULE: impress.settings
