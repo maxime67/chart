@@ -244,11 +244,11 @@ backend:
 
   migrate:
     command:
-      - "echo a"
-#      - "-c"
-#      - |
-#        python manage.py migrate --no-input &&
-#        python manage.py create_demo --force
+      - "/bin/sh"
+      - "-c"
+      - |
+        python manage.py migrate --no-input &&
+        python manage.py create_demo
     restartPolicy: Never
 
   command:
