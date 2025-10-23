@@ -31,8 +31,8 @@ commonEnvVars: &commonEnvVars
 ## @param ingress.path Path to use for the Ingress
 ingress:
   enabled: false
-  className: null
-  host: impress.example.com
+  className: traefik
+  host: impress.k0li.fr
   path: /
   ## @param ingress.hosts Additional host to configure for the Ingress
   hosts: []
@@ -49,15 +49,17 @@ ingress:
 
   ## @param ingress.customBackends Add custom backends to ingress
   customBackends: []
+  annotations:
+    traefik.ingress.kubernetes.io/router.tls.certresolver: letsencrypt
 
 ## @param ingressCollaborationWS.enabled whether to enable the Ingress or not
 ## @param ingressCollaborationWS.className IngressClass to use for the Ingress
 ## @param ingressCollaborationWS.host Host for the Ingress
 ## @param ingressCollaborationWS.path Path to use for the Ingress
 ingressCollaborationWS:
-  enabled: false
-  className: null
-  host: impress.example.com
+  enabled: true
+  className: traefik
+  host: impress.k0li.fr
   path: /collaboration/ws/
   ## @param ingressCollaborationWS.hosts Additional host to configure for the Ingress
   hosts: []
@@ -80,6 +82,7 @@ ingressCollaborationWS:
   ## @param ingressCollaborationWS.annotations.nginx.ingress.kubernetes.io/proxy-send-timeout
   ## @param ingressCollaborationWS.annotations.nginx.ingress.kubernetes.io/upstream-hash-by
   annotations:
+    traefik.ingress.kubernetes.io/router.tls.certresolver: letsencrypt
     nginx.ingress.kubernetes.io/enable-websocket: "true"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "86400"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "86400"
@@ -92,7 +95,7 @@ ingressCollaborationWS:
 ingressCollaborationApi:
   enabled: true
   host: impress.k0li.fr
-  className: null
+  className: traefik
   path: /collaboration/api/
   ## @param ingressCollaborationApi.hosts Additional host to configure for the Ingress
   hosts: []
@@ -113,6 +116,7 @@ ingressCollaborationApi:
   ## @param ingressCollaborationApi.annotations.nginx.ingress.kubernetes.io/upstream-hash-by
   annotations:
     nginx.ingress.kubernetes.io/upstream-hash-by: $arg_room
+    traefik.ingress.kubernetes.io/router.tls.certresolver: letsencrypt
 
 
 ## @param ingressAdmin.enabled whether to enable the Ingress or not
@@ -122,7 +126,7 @@ ingressCollaborationApi:
 ingressAdmin:
   enabled: true
   host: impress.k0li.fr
-  className: null
+  className: traefik
   path: /admin
   ## @param ingressAdmin.hosts Additional host to configure for the Ingress
   hosts: [ ]
@@ -136,6 +140,8 @@ ingressAdmin:
     enabled: true
     secretName: null
     additional: []
+  annotations:
+    traefik.ingress.kubernetes.io/router.tls.certresolver: letsencrypt
 
 ## @param ingressMedia.enabled whether to enable the Ingress or not
 ## @param ingressMedia.className IngressClass to use for the Ingress
@@ -150,7 +156,9 @@ ingressMedia:
     nginx.ingress.kubernetes.io/auth-response-headers: "Authorization, X-Amz-Date, X-Amz-Content-SHA256"
     nginx.ingress.kubernetes.io/upstream-vhost: minio.impress.svc.cluster.local:9000
     nginx.ingress.kubernetes.io/rewrite-target: /impress-media-storage/$1
-  className: null
+    traefik.ingress.kubernetes.io/router.tls.certresolver: letsencrypt
+
+  className: traefik
   path: /media/(.*)
   ## @param ingressMedia.hosts Additional host to configure for the Ingress
   hosts: [ ]
