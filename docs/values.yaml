@@ -30,8 +30,8 @@ commonEnvVars: &commonEnvVars
 ## @param ingress.host Host for the Ingress
 ## @param ingress.path Path to use for the Ingress
 ingress:
-  enabled: false
-  ClassName: null
+  enabled: true
+  className: null
   host: impress.k0li.fr
   path: /
   ## @param ingress.hosts Additional host to configure for the Ingress
@@ -43,7 +43,7 @@ ingress:
   ## @extra ingress.tls.additional[].secretName Secret name for additional TLS config
   ## @extra ingress.tls.additional[].hosts[] Hosts for additional TLS config
   tls:
-    enabled: false
+    enabled: true
     secretName: null
     additional: []
 
@@ -58,7 +58,7 @@ ingress:
 ## @param ingressCollaborationWS.path Path to use for the Ingress
 ingressCollaborationWS:
   enabled: true
-  ClassName: null
+  className: null
   host: impress.k0li.fr
   path: /collaboration/ws/
   ## @param ingressCollaborationWS.hosts Additional host to configure for the Ingress
@@ -70,7 +70,7 @@ ingressCollaborationWS:
   ## @extra ingressCollaborationWS.tls.additional[].secretName Secret name for additional TLS config
   ## @extra ingressCollaborationWS.tls.additional[].hosts[] Hosts for additional TLS config
   tls:
-    enabled: false
+    enabled: true
     secretName: null
     additional: []
 
@@ -95,7 +95,7 @@ ingressCollaborationWS:
 ingressCollaborationApi:
   enabled: true
   host: impress.k0li.fr
-  ClassName: null
+  className: null
   path: /collaboration/api/
   ## @param ingressCollaborationApi.hosts Additional host to configure for the Ingress
   hosts: []
@@ -106,7 +106,7 @@ ingressCollaborationApi:
   ## @extra ingressCollaborationApi.tls.additional[].secretName Secret name for additional TLS config
   ## @extra ingressCollaborationApi.tls.additional[].hosts[] Hosts for additional TLS config
   tls:
-    enabled: false
+    enabled: true
     secretName: null
     additional: []
 
@@ -126,7 +126,7 @@ ingressCollaborationApi:
 ingressAdmin:
   enabled: true
   host: impress.k0li.fr
-  ClassName: null
+  className: null
   path: /admin
   ## @param ingressAdmin.hosts Additional host to configure for the Ingress
   hosts: [ ]
@@ -137,7 +137,7 @@ ingressAdmin:
   ## @extra ingressAdmin.tls.additional[].secretName Secret name for additional TLS config
   ## @extra ingressAdmin.tls.additional[].hosts[] Hosts for additional TLS config
   tls:
-    enabled: false
+    enabled: true
     secretName: null
     additional: []
   annotations:
@@ -158,7 +158,7 @@ ingressMedia:
     nginx.ingress.kubernetes.io/rewrite-target: /impress-media-storage/$1
     traefik.ingress.kubernetes.io/router.tls.certresolver: letsencrypt
 
-  ClassName: null
+  className: null
   path: /media/(.*)
   ## @param ingressMedia.hosts Additional host to configure for the Ingress
   hosts: [ ]
@@ -169,7 +169,7 @@ ingressMedia:
   ## @extra ingressMedia.tls.additional[].secretName Secret name for additional TLS config
   ## @extra ingressMedia.tls.additional[].hosts[] Hosts for additional TLS config
   tls:
-    enabled: false
+    enabled: true
     secretName: null
     additional: []
 
@@ -565,9 +565,9 @@ posthog:
   ## @param posthog.ingress.customBackends Custom backend service configurations for the ingress
   ## @param posthog.ingress.annotations Additional Kubernetes annotations to apply to the ingress
   ingress:
-    enabled: false
+    enabled: true
     className: null
-    host: impress.example.com
+    host: impress.k0li.fr
     path: /
     hosts: [ ]
     tls:
@@ -589,7 +589,7 @@ posthog:
   ingressAssets:
     enabled: false
     className: null
-    host: impress.example.com
+    host: impress.k0li.fr
     paths:
       - /static
       - /array
