@@ -462,7 +462,7 @@ frontend:
   ## @param frontend.service.targetPort frontend container listening port
   ## @param frontend.service.annotations Annotations to add to the frontend Service
   service:
-    type: ClusterIP
+    type: NodePort
     port: 80
     targetPort: 8080
     annotations: { }
