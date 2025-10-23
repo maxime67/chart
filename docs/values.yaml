@@ -645,7 +645,7 @@ yProvider:
     type: ClusterIP
     port: 443
     targetPort: 4444
-    annotations: { }
+    annotations: {}
 
   ## @extra yProvider.probes.liveness.path Configure path for yProvider HTTP liveness probe
   ## @extra yProvider.probes.liveness.targetPort Configure port for yProvider HTTP liveness probe
