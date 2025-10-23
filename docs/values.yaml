@@ -31,7 +31,7 @@ commonEnvVars: &commonEnvVars
 ## @param ingress.path Path to use for the Ingress
 ingress:
   enabled: false
-  className: traefik
+  ClassName: null
   host: impress.k0li.fr
   path: /
   ## @param ingress.hosts Additional host to configure for the Ingress
@@ -58,7 +58,7 @@ ingress:
 ## @param ingressCollaborationWS.path Path to use for the Ingress
 ingressCollaborationWS:
   enabled: true
-  className: traefik
+  ClassName: null
   host: impress.k0li.fr
   path: /collaboration/ws/
   ## @param ingressCollaborationWS.hosts Additional host to configure for the Ingress
@@ -95,7 +95,7 @@ ingressCollaborationWS:
 ingressCollaborationApi:
   enabled: true
   host: impress.k0li.fr
-  className: traefik
+  ClassName: null
   path: /collaboration/api/
   ## @param ingressCollaborationApi.hosts Additional host to configure for the Ingress
   hosts: []
@@ -126,7 +126,7 @@ ingressCollaborationApi:
 ingressAdmin:
   enabled: true
   host: impress.k0li.fr
-  className: traefik
+  ClassName: null
   path: /admin
   ## @param ingressAdmin.hosts Additional host to configure for the Ingress
   hosts: [ ]
@@ -158,7 +158,7 @@ ingressMedia:
     nginx.ingress.kubernetes.io/rewrite-target: /impress-media-storage/$1
     traefik.ingress.kubernetes.io/router.tls.certresolver: letsencrypt
 
-  className: traefik
+  ClassName: null
   path: /media/(.*)
   ## @param ingressMedia.hosts Additional host to configure for the Ingress
   hosts: [ ]
