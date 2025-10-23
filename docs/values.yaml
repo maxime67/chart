@@ -151,24 +151,34 @@ yProvider:
 posthog:
   ingress:
     enabled: false
+    tls:
+      enabled: false
   ingressAssets:
     enabled: false
 
 ingress:
   enabled: true
   host: impress.127.0.0.1.nip.io
+  tls:
+    enabled: false
 
 ingressCollaborationWS:
   enabled: true
   host: impress.127.0.0.1.nip.io
+  tls:
+    enabled: false
 
 ingressCollaborationApi:
   enabled: true
   host: impress.127.0.0.1.nip.io
+  tls:
+    enabled: false
 
 ingressAdmin:
   enabled: true
   host: impress.127.0.0.1.nip.io
+  tls:
+    enabled: false
 
 ingressMedia:
   enabled: true
