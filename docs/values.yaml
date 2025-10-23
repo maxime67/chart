@@ -40,7 +40,7 @@ commonEnvVars: &commonEnvVars
 ingress:
   enabled: false
   className: null
-  host: impress.k0li.fr
+  host: impress.127.0.0.1.nip.io
   path: /
   ## @param ingress.hosts Additional host to configure for the Ingress
   hosts: [ ]
@@ -462,7 +462,7 @@ frontend:
   ## @param frontend.service.targetPort frontend container listening port
   ## @param frontend.service.annotations Annotations to add to the frontend Service
   service:
-    type: NodePort
+    type: ClusterIP
     port: 80
     targetPort: 8080
     annotations: { }
@@ -523,17 +523,19 @@ posthog:
   ## @param posthog.ingress.customBackends Custom backend service configurations for the ingress
   ## @param posthog.ingress.annotations Additional Kubernetes annotations to apply to the ingress
   ingress:
-    enabled: false
+    enabled: true
     className: null
-    host: impress.example.com
+    host: impress.127.0.0.1.nip.io
     path: /
     hosts: [ ]
     tls:
-      enabled: true
+      enabled: false
       additional: [ ]
 
     customBackends: [ ]
-    annotations: { }
+    annotations:
+      traefik.ingress.kubernetes.io/router.tls.certresolver: letsencrypt
+
 
   ## @param posthog.ingressAssets.enabled Enable or disable the ingress resource creation
   ## @param posthog.ingressAssets.className Kubernetes ingress class name to use (e.g., nginx, traefik)
