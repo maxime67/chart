@@ -158,7 +158,7 @@ auth:
   postgresPassword: "password"
   ## @param auth.username Name for a custom user to create
   ##
-  username: "user"
+  username: "dinum"
   ## @param auth.password Password for the custom user to create. Ignored if `auth.existingSecret` is provided
   ##
   password: "password"
