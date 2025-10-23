@@ -427,7 +427,7 @@ backend:
 frontend:
   envVars:
     PORT: 8080
-    NEXT_PUBLIC_API_ORIGIN: https://impress.127.0.0.1.nip.io
+    NEXT_PUBLIC_API_ORIGIN: http://51.77.150.97:32657
 
   replicas: 1
 
