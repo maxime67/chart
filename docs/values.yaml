@@ -50,6 +50,8 @@ ingress:
   ## @param ingress.customBackends Add custom backends to ingress
   customBackends: []
   annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
     traefik.ingress.kubernetes.io/router.tls.certresolver: letsencrypt
 
 ## @param ingressCollaborationWS.enabled whether to enable the Ingress or not
