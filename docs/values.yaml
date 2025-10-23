@@ -1,11 +1,3 @@
-annotations:
-  nginx.ingress.kubernetes.io/auth-url: https://impress.127.0.0.1.nip.io/api/v1.0/documents/media-auth/
-  nginx.ingress.kubernetes.io/auth-response-headers: "Authorization, X-Amz-Date, X-Amz-Content-SHA256"
-  nginx.ingress.kubernetes.io/upstream-vhost: minio.impress.svc.cluster.local:9000
-  nginx.ingress.kubernetes.io/rewrite-target: /impress-media-storage/$1
-
-
-
 # Default values for impress.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
@@ -21,7 +13,7 @@ annotations:
 ## @extra image.credentials.name Name of the generated secret for imagePullSecrets
 image:
   repository: lasuite/impress-backend
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
   tag: "latest"
 
 ## @param nameOverride Override the chart name
@@ -31,19 +23,19 @@ fullnameOverride: ""
 
 ## @skip commonEnvVars
 commonEnvVars: &commonEnvVars
-  <<: [ ]
+  <<: []
 
 ## @param ingress.enabled whether to enable the Ingress or not
 ## @param ingress.className IngressClass to use for the Ingress
 ## @param ingress.host Host for the Ingress
 ## @param ingress.path Path to use for the Ingress
 ingress:
-  enabled: true
+  enabled: false
   className: null
-  host: impress.127.0.0.1.nip.io
+  host: impress.example.com
   path: /
   ## @param ingress.hosts Additional host to configure for the Ingress
-  hosts: [ ]
+  hosts: []
   #  - chart-example.local
   ## @param ingress.tls.enabled Weather to enable TLS for the Ingress
   ## @param ingress.tls.secretName Secret name for TLS config
@@ -51,26 +43,24 @@ ingress:
   ## @extra ingress.tls.additional[].secretName Secret name for additional TLS config
   ## @extra ingress.tls.additional[].hosts[] Hosts for additional TLS config
   tls:
-    enabled: false
+    enabled: true
     secretName: null
-    additional: [ ]
+    additional: []
 
   ## @param ingress.customBackends Add custom backends to ingress
-  customBackends: [ ]
-  annotations:
-    traefik.ingress.kubernetes.io/router.tls.certresolver: letsencrypt
+  customBackends: []
 
 ## @param ingressCollaborationWS.enabled whether to enable the Ingress or not
 ## @param ingressCollaborationWS.className IngressClass to use for the Ingress
 ## @param ingressCollaborationWS.host Host for the Ingress
 ## @param ingressCollaborationWS.path Path to use for the Ingress
 ingressCollaborationWS:
-  enabled: true
+  enabled: false
   className: null
-  host: impress.127.0.0.1.nip.io
+  host: impress.example.com
   path: /collaboration/ws/
   ## @param ingressCollaborationWS.hosts Additional host to configure for the Ingress
-  hosts: [ ]
+  hosts: []
   #  - chart-example.local
   ## @param ingressCollaborationWS.tls.enabled Weather to enable TLS for the Ingress
   ## @param ingressCollaborationWS.tls.secretName Secret name for TLS config
@@ -80,10 +70,10 @@ ingressCollaborationWS:
   tls:
     enabled: true
     secretName: null
-    additional: [ ]
+    additional: []
 
   ## @param ingressCollaborationWS.customBackends Add custom backends to ingress
-  customBackends: [ ]
+  customBackends: []
 
   ## @param ingressCollaborationWS.annotations.nginx.ingress.kubernetes.io/enable-websocket
   ## @param ingressCollaborationWS.annotations.nginx.ingress.kubernetes.io/proxy-read-timeout
@@ -100,12 +90,12 @@ ingressCollaborationWS:
 ## @param ingressCollaborationApi.host Host for the Ingress
 ## @param ingressCollaborationApi.path Path to use for the Ingress
 ingressCollaborationApi:
-  enabled: true
+  enabled: false
   className: null
-  host: impress.127.0.0.1.nip.io
+  host: impress.example.com
   path: /collaboration/api/
   ## @param ingressCollaborationApi.hosts Additional host to configure for the Ingress
-  hosts: [ ]
+  hosts: []
   #  - chart-example.local
   ## @param ingressCollaborationApi.tls.enabled Weather to enable TLS for the Ingress
   ## @param ingressCollaborationApi.tls.secretName Secret name for TLS config
@@ -115,10 +105,10 @@ ingressCollaborationApi:
   tls:
     enabled: true
     secretName: null
-    additional: [ ]
+    additional: []
 
   ## @param ingressCollaborationApi.customBackends Add custom backends to ingress
-  customBackends: [ ]
+  customBackends: []
 
   ## @param ingressCollaborationApi.annotations.nginx.ingress.kubernetes.io/upstream-hash-by
   annotations:
@@ -130,9 +120,9 @@ ingressCollaborationApi:
 ## @param ingressAdmin.host Host for the Ingress
 ## @param ingressAdmin.path Path to use for the Ingress
 ingressAdmin:
-  enabled: true
+  enabled: false
   className: null
-  host: impress.127.0.0.1.nip.io
+  host: impress.example.com
   path: /admin
   ## @param ingressAdmin.hosts Additional host to configure for the Ingress
   hosts: [ ]
@@ -145,16 +135,16 @@ ingressAdmin:
   tls:
     enabled: true
     secretName: null
-    additional: [ ]
+    additional: []
 
 ## @param ingressMedia.enabled whether to enable the Ingress or not
 ## @param ingressMedia.className IngressClass to use for the Ingress
 ## @param ingressMedia.host Host for the Ingress
 ## @param ingressMedia.path Path to use for the Ingress
 ingressMedia:
-  enabled: true
+  enabled: false
   className: null
-  host: impress.127.0.0.1.nip.io
+  host: impress.example.com
   path: /media/(.*)
   ## @param ingressMedia.hosts Additional host to configure for the Ingress
   hosts: [ ]
@@ -167,7 +157,7 @@ ingressMedia:
   tls:
     enabled: true
     secretName: null
-    additional: [ ]
+    additional: []
 
   ## @param ingressMedia.annotations.nginx.ingress.kubernetes.io/auth-url
   ## @param ingressMedia.annotations.nginx.ingress.kubernetes.io/auth-response-headers
@@ -186,112 +176,30 @@ ingressMedia:
 serviceMedia:
   host: minio.impress.svc.cluster.local
   port: 9000
+  annotations: {}
 
 
-  ## @section backend
+## @section backend
 
 backend:
-  replicas: 1
-  envVars:
-    COLLABORATION_API_URL: https://http://51.77.150.97:31954/collaboration/api/
-    COLLABORATION_SERVER_SECRET: my-secret
-    DJANGO_CSRF_TRUSTED_ORIGINS: "*"
-    DJANGO_CONFIGURATION: Feature
-    DJANGO_ALLOWED_HOSTS: "*"
-    DJANGO_SERVER_TO_SERVER_API_TOKENS: secret-api-key
-    DJANGO_SECRET_KEY: AgoodOrAbadKey
-    DJANGO_SETTINGS_MODULE: impress.settings
-    DJANGO_SUPERUSER_PASSWORD: admin
-    DJANGO_EMAIL_BRAND_NAME: "La Suite Numérique"
-    DJANGO_EMAIL_HOST: "mailcatcher"
-    DJANGO_EMAIL_LOGO_IMG: https://impress.127.0.0.1.nip.io/assets/logo-suite-numerique.png
-    DJANGO_EMAIL_PORT: 1025
-    DJANGO_EMAIL_USE_SSL: False
-    LOGGING_LEVEL_HANDLERS_CONSOLE: ERROR
-    LOGGING_LEVEL_LOGGERS_ROOT: INFO
-    LOGGING_LEVEL_LOGGERS_APP: INFO
-    OIDC_OP_JWKS_ENDPOINT: https://keycloak.127.0.0.1.nip.io/realms/impress/protocol/openid-connect/certs
-    OIDC_OP_AUTHORIZATION_ENDPOINT: https://keycloak.127.0.0.1.nip.io/realms/impress/protocol/openid-connect/auth
-    OIDC_OP_TOKEN_ENDPOINT: https://keycloak.127.0.0.1.nip.io/realms/impress/protocol/openid-connect/token
-    OIDC_OP_USER_ENDPOINT: https://keycloak.127.0.0.1.nip.io/realms/impress/protocol/openid-connect/userinfo
-    OIDC_OP_LOGOUT_ENDPOINT: https://keycloak.127.0.0.1.nip.io/realms/impress/protocol/openid-connect/logout
-    OIDC_RP_CLIENT_ID: impress
-    OIDC_RP_CLIENT_SECRET: ThisIsAnExampleKeyForDevPurposeOnly
-    OIDC_RP_SIGN_ALGO: RS256
-    OIDC_RP_SCOPES: "openid email"
-    OIDC_VERIFY_SSL: False
-    OIDC_USERINFO_SHORTNAME_FIELD: "given_name"
-    OIDC_USERINFO_FULLNAME_FIELDS: "given_name,usual_name"
-    OIDC_REDIRECT_ALLOWED_HOSTS: https://impress.127.0.0.1.nip.io
-    OIDC_AUTH_REQUEST_EXTRA_PARAMS: "{'acr_values': 'eidas1'}"
-    LOGIN_REDIRECT_URL: https://impress.127.0.0.1.nip.io
-    LOGIN_REDIRECT_URL_FAILURE: https://impress.127.0.0.1.nip.io
-    LOGOUT_REDIRECT_URL: https://impress.127.0.0.1.nip.io
-    POSTHOG_KEY: "{'id': 'posthog_key', 'host': 'https://product.impress.127.0.0.1.nip.io'}"
-    DB_HOST: postgresql.postgresql.svc.cluster.local
-    DB_NAME: impress
-    DB_USER: dinum
-    DB_PASSWORD: pass
-    DB_PORT: 5432
-    REDIS_URL: redis://redis:6379/1
-    AWS_S3_ENDPOINT_URL: http://minio.impress.svc.cluster.local:9000
-    AWS_S3_ACCESS_KEY_ID: root
-    AWS_S3_SECRET_ACCESS_KEY: password
-    AWS_STORAGE_BUCKET_NAME: impress-media-storage
-    STORAGES_STATICFILES_BACKEND: django.contrib.staticfiles.storage.StaticFilesStorage
-    Y_PROVIDER_API_BASE_URL: http://impress-y-provider:443/api/
-    Y_PROVIDER_API_KEY: my-secret
 
-  migrate:
-    command:
-      - "/bin/sh"
-      - "-c"
-      - |
-        python manage.py migrate --no-input &&
-        python manage.py create_demo
-    restartPolicy: Never
-
-  command:
-    - "gunicorn"
-    - "-c"
-    - "/usr/local/etc/gunicorn/impress.py"
-    - "impress.wsgi:application"
-    - "--reload"
-
-  createsuperuser:
-    command:
-      - "/bin/sh"
-      - "-c"
-      - |
-        python manage.py createsuperuser --email admin@example.com --password admin
-    restartPolicy: Never
-
-  # Extra volume to manage our local custom CA and avoid to set ssl_verify: false
-  extraVolumeMounts: { }
-#    - name: certs
-#      mountPath: /cert/cacert.pem
-#      subPath: cacert.pem
-
-  # Extra volume to manage our local custom CA and avoid to set ssl_verify: false
-  extraVolumes: { }
-#    - name: certs
-#      configMap:
-#        name: certifi
-#        items:
-#          - key: cacert.pem
-#            path: cacert.pem
+  ## @param backend.command Override the backend container command
+  command: []
 
   ## @param backend.args Override the backend container args
-  args: [ ]
+  args: []
+
+  ## @param backend.replicas Amount of backend replicas
+  replicas: 3
 
   ## @param backend.shareProcessNamespace Enable share process namespace between containers
   shareProcessNamespace: false
 
   ## @param backend.sidecars Add sidecars containers to backend deployment
-  sidecars: [ ]
+  sidecars: []
 
   ## @param backend.migrateJobAnnotations Annotations for the migrate job
-  migrateJobAnnotations: { }
+  migrateJobAnnotations: {}
 
   ## @param backend.jobs.ttlSecondsAfterFinished Period to wait before remove jobs
   ## @param backend.jobs.backoffLimit Numbers of jobs retries
@@ -302,21 +210,67 @@ backend:
   ## @param backend.securityContext Configure backend Pod security context
   securityContext: null
 
+  ## @param backend.envVars Configure backend container environment variables
+  ## @extra backend.envVars.BY_VALUE Example environment variable by setting value directly
+  ## @extra backend.envVars.FROM_CONFIGMAP.configMapKeyRef.name Name of a ConfigMap when configuring env vars from a ConfigMap
+  ## @extra backend.envVars.FROM_CONFIGMAP.configMapKeyRef.key Key within a ConfigMap when configuring env vars from a ConfigMap
+  ## @extra backend.envVars.FROM_SECRET.secretKeyRef.name Name of a Secret when configuring env vars from a Secret
+  ## @extra backend.envVars.FROM_SECRET.secretKeyRef.key Key within a Secret when configuring env vars from a Secret
+  ## @skip backend.envVars
+  envVars:
+    <<: *commonEnvVars
+
   ## @param backend.podAnnotations Annotations to add to the backend Pod
-  podAnnotations: { }
+  podAnnotations: {}
 
   ## @param backend.dpAnnotations Annotations to add to the backend Deployment
-  dpAnnotations: { }
+  dpAnnotations: {}
 
   ## @param backend.service.type backend Service type
   ## @param backend.service.port backend Service listening port
   ## @param backend.service.targetPort backend container listening port
   ## @param backend.service.annotations Annotations to add to the backend Service
   service:
-    type: NodePort
+    type: ClusterIP
     port: 80
     targetPort: 8000
-    annotations: { }
+    annotations: {}
+
+  ## @param backend.migrate.command backend migrate command
+  ## @param backend.migrate.restartPolicy backend migrate job restart policy
+  migrate:
+    command:
+      - /bin/sh
+      - "-c"
+      - |
+        while ! python manage.py check --database default > /dev/null 2>&1
+        do
+          echo "Database not ready"
+          sleep 2
+        done
+
+        echo "Database is ready"
+
+        python manage.py migrate --no-input
+    restartPolicy: Never
+
+  ## @param backend.createsuperuser.command backend migrate command
+  ## @param backend.createsuperuser.restartPolicy backend migrate job restart policy
+  createsuperuser:
+    command:
+      - "/bin/sh"
+      - "-c"
+      - |
+        while ! python manage.py check --database default > /dev/null 2>&1
+        do
+          echo "Database not ready"
+          sleep 2
+        done
+
+        echo "Database is ready"
+
+        python manage.py createsuperuser --email $DJANGO_SUPERUSER_EMAIL --password $DJANGO_SUPERUSER_PASSWORD
+    restartPolicy: Never
 
   ## @extra backend.job job dedicated to run a random management command, for example after a deployment
   ## @param backend.job.name The name to use to describe this job
@@ -326,7 +280,7 @@ backend:
   ## @skip backend.job.annotations.argocd.argoproj.io/hook
   job:
     name: ""
-    command: [ ]
+    command: []
     restartPolicy: Never
     annotations:
       argocd.argoproj.io/hook: PostSync
@@ -340,7 +294,7 @@ backend:
   #       - "-c"
   #       - python manage.py flush --no-input
   ## @param backend.cronjobs Cronjob name, schedule, command
-  cronjobs: [ ]
+  cronjobs: []
 
   ## @param backend.probes.liveness.path [nullable] Configure path for backend HTTP liveness probe
   ## @param backend.probes.liveness.targetPort [nullable] Configure port for backend HTTP liveness probe
@@ -363,26 +317,35 @@ backend:
       initialDelaySeconds: 10
 
   ## @param backend.resources Resource requirements for the backend container
-  resources: { }
+  resources: {}
 
   ## @param backend.nodeSelector Node selector for the backend Pod
-  nodeSelector: { }
+  nodeSelector: {}
 
   ## @param backend.tolerations Tolerations for the backend Pod
-  tolerations: [ ]
+  tolerations: []
 
   ## @param backend.affinity Affinity for the backend Pod
-  affinity: { }
+  affinity: {}
 
   ## @param backend.persistence Additional volumes to create and mount on the backend. Used for debugging purposes
   ## @extra backend.persistence.volume-name.size Size of the additional volume
   ## @extra backend.persistence.volume-name.type Type of the additional volume, persistentVolumeClaim or emptyDir
   ## @extra backend.persistence.volume-name.mountPath Path where the volume should be mounted to
-  persistence: { }
+  persistence: {}
+
+  ## @param backend.extraVolumeMounts Additional volumes to mount on the backend.
+  extraVolumeMounts: []
+
+  ## @param backend.extraVolumes Additional volumes to mount on the backend.
+  extraVolumes: []
 
   ## @param backend.pdb.enabled Enable pdb on backend
   pdb:
     enabled: true
+
+  ## @param backend.serviceAccountName Optional service account name to use for backend pods
+  serviceAccountName: null
 
   ## @param backend.themeCustomization.enabled Enable theme customization
   ## @param backend.themeCustomization.file_content Content of the theme customization file. Must be a json object.
@@ -405,18 +368,18 @@ backend:
   ## @param backend.celery.probes.readiness.timeoutSeconds Timeout for the celery container readiness probe
   celery:
     replicas: 1
-    command: [ ]
-    args: [ "celery", "-A", "impress.celery_app", "worker", "-l", "INFO", "-n", "impress@%h" ]
-    resources: { }
+    command: []
+    args: ["celery", "-A", "impress.celery_app", "worker", "-l", "INFO", "-n", "impress@%h"]
+    resources: {}
     probes:
       liveness:
         exec:
-          command: [ "/bin/sh", "-c", "celery -A impress.celery_app inspect ping -d impress@$HOSTNAME" ]
+          command: ["/bin/sh", "-c", "celery -A impress.celery_app inspect ping -d impress@$HOSTNAME"]
         initialDelaySeconds: 60
         timeoutSeconds: 5
       readiness:
         exec:
-          command: [ "/bin/sh", "-c", "celery -A impress.celery_app inspect ping -d impress@$HOSTNAME" ]
+          command: ["/bin/sh", "-c", "celery -A impress.celery_app inspect ping -d impress@$HOSTNAME"]
         initialDelaySeconds: 15
         timeoutSeconds: 5
 
@@ -425,47 +388,57 @@ backend:
 ## @section frontend
 
 frontend:
-  envVars:
-    PORT: 8080
-    NEXT_PUBLIC_API_ORIGIN: http://51.77.150.97:31954
-
-  replicas: 1
-
+  ## @param frontend.image.repository Repository to use to pull impress's frontend container image
+  ## @param frontend.image.tag impress's frontend container tag
+  ## @param frontend.image.pullPolicy frontend container image pull policy
   image:
     repository: lasuite/impress-frontend
-    pullPolicy: Always
+    pullPolicy: IfNotPresent
     tag: "latest"
 
   ## @param frontend.command Override the frontend container command
-  command: [ ]
+  command: []
 
   ## @param frontend.args Override the frontend container args
-  args: [ ]
+  args: []
+
+  ## @param frontend.replicas Amount of frontend replicas
+  replicas: 3
 
   ## @param frontend.shareProcessNamespace Enable share process namefrontend between containers
   shareProcessNamespace: false
 
   ## @param frontend.sidecars Add sidecars containers to frontend deployment
-  sidecars: [ ]
+  sidecars: []
 
   ## @param frontend.securityContext Configure frontend Pod security context
   securityContext: null
 
+  ## @param frontend.envVars Configure frontend container environment variables
+  ## @extra frontend.envVars.BY_VALUE Example environment variable by setting value directly
+  ## @extra frontend.envVars.FROM_CONFIGMAP.configMapKeyRef.name Name of a ConfigMap when configuring env vars from a ConfigMap
+  ## @extra frontend.envVars.FROM_CONFIGMAP.configMapKeyRef.key Key within a ConfigMap when configuring env vars from a ConfigMap
+  ## @extra frontend.envVars.FROM_SECRET.secretKeyRef.name Name of a Secret when configuring env vars from a Secret
+  ## @extra frontend.envVars.FROM_SECRET.secretKeyRef.key Key within a Secret when configuring env vars from a Secret
+  ## @skip frontend.envVars
+  envVars:
+    <<: *commonEnvVars
+
   ## @param frontend.podAnnotations Annotations to add to the frontend Pod
-  podAnnotations: { }
+  podAnnotations: {}
 
   ## @param frontend.dpAnnotations Annotations to add to the frontend Deployment
-  dpAnnotations: { }
+  dpAnnotations: {}
 
   ## @param frontend.service.type frontend Service type
   ## @param frontend.service.port frontend Service listening port
   ## @param frontend.service.targetPort frontend container listening port
   ## @param frontend.service.annotations Annotations to add to the frontend Service
   service:
-    type: NodePort
+    type: ClusterIP
     port: 80
     targetPort: 8080
-    annotations: { }
+    annotations: {}
 
   ## @param frontend.probes Configure probe for frontend
   ## @extra frontend.probes.liveness.path Configure path for frontend HTTP liveness probe
@@ -480,39 +453,43 @@ frontend:
   ## @extra frontend.probes.readiness.targetPort Configure port for frontend HTTP readiness probe
   ## @extra frontend.probes.readiness.initialDelaySeconds Configure initial delay for frontend readiness probe
   ## @extra frontend.probes.readiness.initialDelaySeconds Configure timeout for frontend readiness probe
-  probes: { }
+  probes: {}
 
   ## @param frontend.resources Resource requirements for the frontend container
-  resources: { }
+  resources: {}
 
   ## @param frontend.nodeSelector Node selector for the frontend Pod
-  nodeSelector: { }
+  nodeSelector: {}
 
   ## @param frontend.tolerations Tolerations for the frontend Pod
-  tolerations: [ ]
+  tolerations: []
 
   ## @param frontend.affinity Affinity for the frontend Pod
-  affinity: { }
+  affinity: {}
 
   ## @param frontend.persistence Additional volumes to create and mount on the frontend. Used for debugging purposes
   ## @extra frontend.persistence.volume-name.size Size of the additional volume
   ## @extra frontend.persistence.volume-name.type Type of the additional volume, persistentVolumeClaim or emptyDir
   ## @extra frontend.persistence.volume-name.mountPath Path where the volume should be mounted to
-  persistence: { }
+  persistence: {}
 
   ## @param frontend.extraVolumeMounts Additional volumes to mount on the frontend.
-  extraVolumeMounts: [ ]
+  extraVolumeMounts: []
 
   ## @param frontend.extraVolumes Additional volumes to mount on the frontend.
-  extraVolumes: [ ]
+  extraVolumes: []
 
   ## @param frontend.pdb.enabled Enable pdb on frontend
   pdb:
     enabled: true
 
+  ## @param frontend.serviceAccountName Optional service account name to use for frontend pods
+  serviceAccountName: null
+
 ## @section posthog
 
 posthog:
+
   ## @param posthog.ingress.enabled Enable or disable the ingress resource creation
   ## @param posthog.ingress.className Kubernetes ingress class name to use (e.g., nginx, traefik)
   ## @param posthog.ingress.host Primary hostname for the ingress resource
@@ -524,18 +501,16 @@ posthog:
   ## @param posthog.ingress.annotations Additional Kubernetes annotations to apply to the ingress
   ingress:
     enabled: false
-    className: traefik
-    host: impress.k0li.fr
+    className: null
+    host: impress.example.com
     path: /
     hosts: [ ]
     tls:
-      enabled: false
+      enabled: true
       additional: [ ]
 
     customBackends: [ ]
-    annotations:
-      traefik.ingress.kubernetes.io/router.tls.certresolver: letsencrypt
-
+    annotations: {}
 
   ## @param posthog.ingressAssets.enabled Enable or disable the ingress resource creation
   ## @param posthog.ingressAssets.className Kubernetes ingress class name to use (e.g., nginx, traefik)
@@ -559,7 +534,7 @@ posthog:
       additional: [ ]
 
     customBackends: [ ]
-    annotations: { }
+    annotations: {}
 
   ## @param posthog.service.type Service type (e.g. ExternalName, ClusterIP, LoadBalancer)
   ## @param posthog.service.externalName External service hostname when type is ExternalName
@@ -569,7 +544,7 @@ posthog:
     type: ExternalName
     externalName: eu.i.posthog.com
     port: 443
-    annotations: { }
+    annotations: {}
 
   ## @param posthog.assetsService.type Service type (e.g. ExternalName, ClusterIP, LoadBalancer)
   ## @param posthog.assetsService.externalName External service hostname when type is ExternalName
@@ -579,67 +554,63 @@ posthog:
     type: ExternalName
     externalName: eu-assets.i.posthog.com
     port: 443
-    annotations: { }
+    annotations: {}
 
 
 ## @section yProvider
 
 yProvider:
-  replicas: 1
-
+  ## @param yProvider.image.repository Repository to use to pull impress's yProvider container image
+  ## @param yProvider.image.tag impress's yProvider container tag
+  ## @param yProvider.image.pullPolicy yProvider container image pull policy
   image:
     repository: lasuite/impress-y-provider
-    pullPolicy: Always
+    pullPolicy: IfNotPresent
     tag: "latest"
 
-  envVars:
-    COLLABORATION_LOGGING: true
-    COLLABORATION_SERVER_ORIGIN: https://impress.127.0.0.1.nip.io
-    COLLABORATION_SERVER_SECRET: my-secret
-    Y_PROVIDER_API_KEY: my-secret
-    COLLABORATION_BACKEND_BASE_URL: https://impress.127.0.0.1.nip.io
-    NODE_EXTRA_CA_CERTS: /usr/local/share/ca-certificates/cacert.pem
-
-  # Mount the certificate so yProvider can establish tls with the backend
-  extraVolumeMounts: { }
-#    - name: certs
-#      mountPath: /usr/local/share/ca-certificates/cacert.pem
-#      subPath: cacert.pem
-
-  extraVolumes: { }
-#    - name: certs
-#      configMap:
-#        name: certifi
-#        items:
-#          - key: cacert.pem
-#            path: cacert.pem
-
   ## @param yProvider.command Override the yProvider container command
-  command: [ ]
+  command: []
 
   ## @param yProvider.args Override the yProvider container args
-  args: [ ]
+  args: []
+
+  ## @param yProvider.replicas Amount of yProvider replicas
+  replicas: 3
 
   ## @param yProvider.shareProcessNamespace Enable share process nameyProvider between containers
   shareProcessNamespace: false
 
   ## @param yProvider.sidecars Add sidecars containers to yProvider deployment
-  sidecars: [ ]
+  sidecars: []
 
   ## @param yProvider.securityContext Configure yProvider Pod security context
   securityContext: null
 
+  ## @param yProvider.envVars Configure yProvider container environment variables
+  ## @extra yProvider.envVars.BY_VALUE Example environment variable by setting value directly
+  ## @extra yProvider.envVars.FROM_CONFIGMAP.configMapKeyRef.name Name of a ConfigMap when configuring env vars from a ConfigMap
+  ## @extra yProvider.envVars.FROM_CONFIGMAP.configMapKeyRef.key Key within a ConfigMap when configuring env vars from a ConfigMap
+  ## @extra yProvider.envVars.FROM_SECRET.secretKeyRef.name Name of a Secret when configuring env vars from a Secret
+  ## @extra yProvider.envVars.FROM_SECRET.secretKeyRef.key Key within a Secret when configuring env vars from a Secret
+  ## @skip yProvider.envVars
+  envVars:
+    <<: *commonEnvVars
+
   ## @param yProvider.podAnnotations Annotations to add to the yProvider Pod
-  podAnnotations: { }
+  podAnnotations: {}
 
   ## @param yProvider.dpAnnotations Annotations to add to the yProvider Deployment
-  dpAnnotations: { }
+  dpAnnotations: {}
 
+  ## @param yProvider.service.type yProvider Service type
+  ## @param yProvider.service.port yProvider Service listening port
+  ## @param yProvider.service.targetPort yProvider container listening port
+  ## @param yProvider.service.annotations Annotations to add to the yProvider Service
   service:
-    type: NodePort
+    type: ClusterIP
     port: 443
     targetPort: 4444
-    annotations: { }
+    annotations: {}
 
   ## @extra yProvider.probes.liveness.path Configure path for yProvider HTTP liveness probe
   ## @extra yProvider.probes.liveness.targetPort Configure port for yProvider HTTP liveness probe
@@ -661,23 +632,32 @@ yProvider:
       initialDelaySeconds: 10
 
   ## @param yProvider.resources Resource requirements for the yProvider container
-  resources: { }
+  resources: {}
 
   ## @param yProvider.nodeSelector Node selector for the yProvider Pod
-  nodeSelector: { }
+  nodeSelector: {}
 
   ## @param yProvider.tolerations Tolerations for the yProvider Pod
-  tolerations: [ ]
+  tolerations: []
 
   ## @param yProvider.affinity Affinity for the yProvider Pod
-  affinity: { }
+  affinity: {}
 
   ## @param yProvider.persistence Additional volumes to create and mount on the yProvider. Used for debugging purposes
   ## @extra yProvider.persistence.volume-name.size Size of the additional volume
   ## @extra yProvider.persistence.volume-name.type Type of the additional volume, persistentVolumeClaim or emptyDir
   ## @extra yProvider.persistence.volume-name.mountPath Path where the volume should be mounted to
-  persistence: { }
+  persistence: {}
+
+  ## @param yProvider.extraVolumeMounts Additional volumes to mount on the yProvider.
+  extraVolumeMounts: []
+
+  ## @param yProvider.extraVolumes Additional volumes to mount on the yProvider.
+  extraVolumes: []
 
   ## @param yProvider.pdb.enabled Enable pdb on yProvider
   pdb:
     enabled: true
+
+  ## @param yProvider.serviceAccountName Optional service account name to use for yProvider pods
+  serviceAccountName: null
