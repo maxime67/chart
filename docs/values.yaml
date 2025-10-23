@@ -597,18 +597,18 @@ yProvider:
     NODE_EXTRA_CA_CERTS: /usr/local/share/ca-certificates/cacert.pem
 
   # Mount the certificate so yProvider can establish tls with the backend
-  extraVolumeMounts:
-    - name: certs
-      mountPath: /usr/local/share/ca-certificates/cacert.pem
-      subPath: cacert.pem
+  extraVolumeMounts: { }
+#    - name: certs
+#      mountPath: /usr/local/share/ca-certificates/cacert.pem
+#      subPath: cacert.pem
 
-  extraVolumes:
-    - name: certs
-      configMap:
-        name: certifi
-        items:
-          - key: cacert.pem
-            path: cacert.pem
+  extraVolumes: { }
+#    - name: certs
+#      configMap:
+#        name: certifi
+#        items:
+#          - key: cacert.pem
+#            path: cacert.pem
 
   ## @param yProvider.command Override the yProvider container command
   command: [ ]
