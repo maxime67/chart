@@ -43,7 +43,7 @@ ingress:
   ## @extra ingress.tls.additional[].secretName Secret name for additional TLS config
   ## @extra ingress.tls.additional[].hosts[] Hosts for additional TLS config
   tls:
-    enabled: true
+    enabled: false
     secretName: null
     additional: []
 
@@ -70,7 +70,7 @@ ingressCollaborationWS:
   ## @extra ingressCollaborationWS.tls.additional[].secretName Secret name for additional TLS config
   ## @extra ingressCollaborationWS.tls.additional[].hosts[] Hosts for additional TLS config
   tls:
-    enabled: true
+    enabled: false
     secretName: null
     additional: []
 
@@ -106,7 +106,7 @@ ingressCollaborationApi:
   ## @extra ingressCollaborationApi.tls.additional[].secretName Secret name for additional TLS config
   ## @extra ingressCollaborationApi.tls.additional[].hosts[] Hosts for additional TLS config
   tls:
-    enabled: true
+    enabled: false
     secretName: null
     additional: []
 
@@ -137,7 +137,7 @@ ingressAdmin:
   ## @extra ingressAdmin.tls.additional[].secretName Secret name for additional TLS config
   ## @extra ingressAdmin.tls.additional[].hosts[] Hosts for additional TLS config
   tls:
-    enabled: true
+    enabled: false
     secretName: null
     additional: []
   annotations:
@@ -169,7 +169,7 @@ ingressMedia:
   ## @extra ingressMedia.tls.additional[].secretName Secret name for additional TLS config
   ## @extra ingressMedia.tls.additional[].hosts[] Hosts for additional TLS config
   tls:
-    enabled: true
+    enabled: false
     secretName: null
     additional: []
 
