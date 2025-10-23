@@ -142,6 +142,8 @@ yProvider:
     initialDelaySeconds: 10
   service:
     annotations: { }
+  pdb:
+    enabled: true
 
 posthog:
   ingress:
